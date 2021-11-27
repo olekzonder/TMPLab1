@@ -44,34 +44,28 @@ int main()
 	int* sort = new int[K];
 	std::fill_n(sort, K, 0);
 
+
+
 	Stack A;
 	Stack C;
 
 	A.push(arr, N); //инициализация стека элементами из массива
 	C.push(sort, K); //инициализация словаря
 
+	std::cout << "Сортируемый стек: " << std::endl;
+	for (int i = 0; i < N; i++) std::cout << A[i] << " ";
+	std::cout << std::endl;
+
 	//Алгоритм сортировки подсчётом с использованием стека:
-	int N_op = 0;
 	unsigned int t1 = GetTickCount64();
-	N_op += 2;
-	for (int i = 0; i < N; i++) {
-		N_op += 2;
-		C[A[i]]++;
-	}
+	for (int i = 0; i < N; i++) { C[A[i]]++; } 
 	int k = 0;
-	N_op++;
-	//+2
-	N_op += 2;
-	for (int i = 0; i < K; i++) {
-		N_op += 2;
-		while (C[i]--) {
-			A[k++] = i;
-		}
-	}
-		unsigned int t2 = GetTickCount64();
-		//
-		N_op += A.get_Nop();
-		N_op += C.get_Nop();
-		std::cout << std::endl << "T = " << t2 - t1 << "ms" << std::endl;
-		std::cout << "N = " << N_op;
+	for (int i = 0; i < K; i++) while (C[i]--) A[k++] = i; 
+	unsigned int t2 = GetTickCount64();
+	//
+
+	std::cout << "Отсортированный стек:" << std::endl;
+	for (int i = 0; i < N; i++) { std::cout << A[i] << ' '; }
+
+	std::cout << std::endl << "T = " << t2 - t1 << "ms" << std::endl;
 }
